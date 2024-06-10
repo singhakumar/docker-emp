@@ -45,6 +45,7 @@ pipeline {
         stage('Maven') {
             steps {
                 sh 'mvn --version'
+                sh 'ip a'
             }
         }
     }
