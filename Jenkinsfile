@@ -25,12 +25,13 @@ pipeline {
                 submitter "alice,bob"
                 parameters {
                     string(name: 'YES_NO', defaultValue: 'NO', description: 'Who should I say hello to?')
+                    choice(name: 'sex', choices: ['Male', 'Female', 'Transh'], description: 'Pick something')
                 }
             }
             
             steps {
                 curl ifconfig.io
-                
+
                 echo "Hello ${params.PERSON}"
      
                 echo "Biography: ${params.BIOGRAPHY}"
