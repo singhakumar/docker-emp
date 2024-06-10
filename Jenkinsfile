@@ -29,6 +29,8 @@ pipeline {
             }
             
             steps {
+                curl ifconfig.io
+                
                 echo "Hello ${params.PERSON}"
      
                 echo "Biography: ${params.BIOGRAPHY}"
