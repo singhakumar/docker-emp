@@ -54,6 +54,8 @@ pipeline {
                 stage('In Sequential 1') {
                     steps {
                         echo "In Sequential 1 ${params.YES_NO}"
+                        sh 'echo "Hello World" > india.tpl'
+                        archiveArtifacts artifacts: '*.tpl' , fingerprint: true
                     }
                 }
                 stage('In Sequential 2') {
