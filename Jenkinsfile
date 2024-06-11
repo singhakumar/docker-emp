@@ -16,6 +16,13 @@ pipeline {
         choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
         password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
+
+    environment {
+           AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        // AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+    }
+
+
     stages {
         stage('Non-Parallel Stage') {
             options {
@@ -33,7 +40,8 @@ pipeline {
                 }
             }
             
-            steps {                
+            steps {       
+                echo "$AWS_ACCESS_KEY_ID"         
                 echo "Hello ${params.PERSON}"     
                 echo "Biography: ${params.BIOGRAPHY}"
                 echo "Toggle: ${params.TOGGLE}"
@@ -48,12 +56,14 @@ pipeline {
                 label 'for-sequential'
             }
             environment {
-                FOR_SEQUENTIAL = "some-value"
+                FOR_SEQUENTIAL = "some-value"  // An environment directive used in the top-level pipeline block
             }
             stages {
                 stage('Build') {
                     steps {
                         echo "In Sequential 1 ${params.YES_NO}"
+
+                        echo "$FOR_SEQUENTIAL"
                         sh 'echo "Hello World" > india.tpl'
                         archiveArtifacts artifacts: '*.tpl' , fingerprint: true    // archiveArtifacts captures the files built matching the include pattern (**/target/*.jar) and saves them to the Jenkins controller for later retrieval
                     }
