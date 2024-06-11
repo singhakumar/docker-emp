@@ -51,14 +51,19 @@ pipeline {
                 FOR_SEQUENTIAL = "some-value"
             }
             stages {
-                stage('In Sequential 1') {
+                stage('Build') {
                     steps {
                         echo "In Sequential 1 ${params.YES_NO}"
                         sh 'echo "Hello World" > india.tpl'
-                        archiveArtifacts artifacts: '*.tpl' , fingerprint: true
+                        archiveArtifacts artifacts: '*.tpl' , fingerprint: true    // archiveArtifacts captures the files built matching the include pattern (**/target/*.jar) and saves them to the Jenkins controller for later retrieval
                     }
                 }
                 stage('In Sequential 2') {
+                    when {
+                        expression {
+                            currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                        }
+                    }
                     steps {
                         // echo "In Sequential 2 branch name ${BRANCH_NAME}"
                         echo "In Sequential 2 branch name"
