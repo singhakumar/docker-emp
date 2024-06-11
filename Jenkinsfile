@@ -42,18 +42,55 @@ pipeline {
                 echo "Password: ${params.PASSWORD}"
             }
         }
+
+// sequential
+        stage('Sequential') {
+            agent {
+                label 'for-sequential'
+            }
+            environment {
+                FOR_SEQUENTIAL = "some-value"
+            }
+            stages {
+                stage('In Sequential 1') {
+                    steps {
+                        echo "In Sequential 1"
+                    }
+                }
+                stage('In Sequential 2') {
+                    steps {
+                        echo "In Sequential 2"
+                    }
+                }
+                stage('Parallel In Sequential') {
+                    parallel {
+                        stage('In Parallel 1') {
+                            steps {
+                                echo "In Parallel 1"
+                            }
+                        }
+                        stage('In Parallel 2') {
+                            steps {
+                                echo "In Parallel 2"
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+
         stage('Parallel Stage') {
-            when {
-                    branch 'master'
+    /*        when {
+                    branch 'master'         // Not working as master and main
                 } 
-            failFast true     // parallel stages to all be aborted when any one of them fails, by adding failFast true to the stage containing the parallel
-            /*
+            failFast true                   // parallel stages to all be aborted when any one of them fails, by adding failFast true to the stage containing the parallel
+            
             or
             options {
             parallelsAlwaysFailFast()
             } */
 
-            parallel {
+            parallel {                      // Stages in Declarative Pipeline may have a parallel section containing a list of nested stages to be run in parallel.
                 stage('Branch A') {
                     agent {
                        label 'jen-agent-02'
