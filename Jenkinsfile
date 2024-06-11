@@ -42,7 +42,7 @@ pipeline {
                 echo "Password: ${params.PASSWORD}"
             }
         }
-        stage('Maven') {
+        stage('Parallel Stage') {
             /*           when {
             #               branch 'master'
                        } */
@@ -53,7 +53,7 @@ pipeline {
                        label 'jen-agent-00'
                     }
                     steps {
-                        label 'jen-agent-00'
+                        echo "On Branch A"
                     }
                 }
                 stage('Branch B') {
@@ -61,7 +61,7 @@ pipeline {
                         label 'jen-agent-00'
                     }
                     steps {
-                        label 'jen-agent-00'
+                        echo "On Branch B"
                     }
                 }
                 stage('Branch C') {
