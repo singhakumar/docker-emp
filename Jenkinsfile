@@ -58,7 +58,7 @@ pipeline {
                 }
                 stage('Branch B') {
                     agent {
-                        label 'jen-agent-00'
+                        label 'jen-agent-01'
                     }
                     steps {
                         echo "On Branch B"
@@ -66,7 +66,7 @@ pipeline {
                 }
                 stage('Branch C') {
                     agent {
-                        label 'jen-agent-00'
+                        label 'jen-agent-02'
                     }
                     stages {
                         stage('Nested 1') {
