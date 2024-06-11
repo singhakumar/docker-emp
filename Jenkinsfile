@@ -58,7 +58,8 @@ pipeline {
                 }
                 stage('In Sequential 2') {
                     steps {
-                        echo "In Sequential 2 branch name ${BRANCH_NAME}"
+                        // echo "In Sequential 2 branch name ${BRANCH_NAME}"
+                        echo "In Sequential 2 branch name"
                     }
                 }
                 stage('Parallel In Sequential') {
@@ -74,6 +75,12 @@ pipeline {
                             }
                         }
                     }
+                }
+            }
+            post{
+                success
+                {
+                    echo 'This Time Successful.'
                 }
             }
         } 
