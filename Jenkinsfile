@@ -43,9 +43,9 @@ pipeline {
             }
         }
         stage('Maven') {
-            #           when {
+            /*           when {
             #               branch 'master'
-            #           }
+                       } */
             failFast true
             parallel {
                 stage('Branch A') {
