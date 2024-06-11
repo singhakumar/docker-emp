@@ -50,23 +50,23 @@ pipeline {
             parallel {
                 stage('Branch A') {
                     agent {
-                        label "for-branch-a"
+                       label 'jen-agent-00'
                     }
                     steps {
-                        echo "On Branch A"
+                        label 'jen-agent-00'
                     }
                 }
                 stage('Branch B') {
                     agent {
-                        label "for-branch-b"
+                        label 'jen-agent-00'
                     }
                     steps {
-                        echo "On Branch B"
+                        label 'jen-agent-00'
                     }
                 }
                 stage('Branch C') {
                     agent {
-                        label "for-branch-c"
+                        label 'jen-agent-00'
                     }
                     stages {
                         stage('Nested 1') {
