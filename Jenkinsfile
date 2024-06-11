@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Parallel Stage') {
             when {
-                    branch 'main'
+                    branch 'master'
                 } 
             failFast true     // parallel stages to all be aborted when any one of them fails, by adding failFast true to the stage containing the parallel
             /*
