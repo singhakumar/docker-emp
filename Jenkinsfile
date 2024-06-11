@@ -1,5 +1,9 @@
 pipeline {
-    agent { label 'jen-agent-00' }
+    agent { label 'jen-agent-00' } // none or any 
+
+    options {
+        skipStagesAfterUnstable()
+    }
     
     tools {
         maven 'm-version-3.9.7' 
@@ -7,17 +11,17 @@ pipeline {
     
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who  I say hello to?')
-
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-
         choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-
         password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
     }
     stages {
         stage('Non-Parallel Stage') {
+            options {
+                timeout(time:1,unit: 'HOURS')   // Set a timeout period for this stage, after which Jenkins should abort the stage.
+                retry(5)
+            }
             
             input {
                 message "Should we continue ?"
@@ -29,16 +33,11 @@ pipeline {
                 }
             }
             
-            steps {
-                
-                echo "Hello ${params.PERSON}"
-     
+            steps {                
+                echo "Hello ${params.PERSON}"     
                 echo "Biography: ${params.BIOGRAPHY}"
-
                 echo "Toggle: ${params.TOGGLE}"
-
                 echo "Choice: ${params.CHOICE}"
-
                 echo "Password: ${params.PASSWORD}"
             }
         }
@@ -54,12 +53,12 @@ pipeline {
             stages {
                 stage('In Sequential 1') {
                     steps {
-                        echo "In Sequential 1"
+                        echo "In Sequential 1 ${params.YES_NO}"
                     }
                 }
                 stage('In Sequential 2') {
                     steps {
-                        echo "In Sequential 2"
+                        echo "In Sequential 2 branch name ${BRANCH_NAME}"
                     }
                 }
                 stage('Parallel In Sequential') {
