@@ -29,6 +29,8 @@ pipeline {
             options {
                 timeout(time:1,unit: 'HOURS')   // Set a timeout period for this stage, after which Jenkins should abort the stage.
                 retry(5)
+                
+                preserveStashes()         // preserve previous stage artifacts
             }
             
             input {
@@ -39,11 +41,10 @@ pipeline {
                     string(name: 'YESNO', defaultValue: 'NO', description: 'Who should I say hello to?')
                     choice(name: 'sex', choices: ['Male', 'Female', 'Transh'], description: 'Pick something')
                 }
-            }
-            
+            }            
             steps {       
                 echo "$AWS_ACCESS_KEY_ID"
-                echo "Non-Paraller Stage ${params.YESNO}"         
+                echo "Non-Paraller Stage ${YESNO}"         
                 echo "Hello ${params.PERSON}"     
                 echo "Biography: ${params.BIOGRAPHY}"
                 echo "Toggle: ${params.TOGGLE}"
