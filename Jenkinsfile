@@ -36,14 +36,14 @@ pipeline {
                 ok "Yes, we should."
                 submitter "alice,bob"
                 parameters {
-                    string(name: 'YES_NO', defaultValue: 'NO', description: 'Who should I say hello to?')
+                    string(name: 'YESNO', defaultValue: 'NO', description: 'Who should I say hello to?')
                     choice(name: 'sex', choices: ['Male', 'Female', 'Transh'], description: 'Pick something')
                 }
             }
             
             steps {       
                 echo "$AWS_ACCESS_KEY_ID"
-                echo "Non-Paraller Stage ${params.YES_NO}"         
+                echo "Non-Paraller Stage ${params.YESNO}"         
                 echo "Hello ${params.PERSON}"     
                 echo "Biography: ${params.BIOGRAPHY}"
                 echo "Toggle: ${params.TOGGLE}"
