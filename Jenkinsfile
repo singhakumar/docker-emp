@@ -18,8 +18,9 @@ pipeline {
     }
 
     environment {
-           AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+           AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')  //store cred userid/passwd kubeconfig...
         // AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+          
     }
 
 
@@ -41,7 +42,8 @@ pipeline {
             }
             
             steps {       
-                echo "$AWS_ACCESS_KEY_ID"         
+                echo "$AWS_ACCESS_KEY_ID"
+                echo "Non-Paraller Stage ${params.YES_NO}"         
                 echo "Hello ${params.PERSON}"     
                 echo "Biography: ${params.BIOGRAPHY}"
                 echo "Toggle: ${params.TOGGLE}"
@@ -49,7 +51,6 @@ pipeline {
                 echo "Password: ${params.PASSWORD}"
             }
         }
-
 // sequential
         stage('Sequential') {
             agent {
@@ -61,7 +62,7 @@ pipeline {
             stages {
                 stage('Build') {
                     steps {
-                        echo "In Sequential 1 ${params.YES_NO}"
+                        echo "In Sequential 1 ${params.YES_NO}"  // value is null as variable defined in previous stage
 
                         echo "$FOR_SEQUENTIAL"
                         sh 'echo "Hello World" > india.tpl'
