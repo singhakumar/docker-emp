@@ -30,7 +30,7 @@ pipeline {
                 timeout(time:1,unit: 'HOURS')   // Set a timeout period for this stage, after which Jenkins should abort the stage.
                 retry(5)
                 
-                preserveStashes()         // preserve previous stage artifacts
+                //preserveStashes()         // preserve previous stage artifacts
             }
             
             input {
